@@ -1,0 +1,45 @@
+[user]
+	name = Benjamin Michel
+	email = benjaminm@bamlab.fr
+[color]
+    branch      = auto
+    diff        = auto
+    interactive = auto
+    status      = auto
+    ui          = auto
+[push]
+	default = current
+[alias]
+    clo = clone
+    co  = checkout
+    st  = status
+    pur = pull --rebase
+    ci  = commit
+    rc  = rebase --continue
+    lg  = log -M --decorate --graph
+    br  = branch
+    sth = stash
+    fu  = fetch upstream
+    cobra = !"git fetch upstream; git co upstream/develop; git co -b "
+    pr = pull-request
+[core]
+	editor = vim
+	excludesfile = /Users/BenjMichel/.gitignore_global
+[diff]
+    tool = diffuse 
+[difftool]
+    prompt = false
+[branch]
+	autosetuprebase = always
+[init]
+    templatedir = ~/.gittemplate
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
