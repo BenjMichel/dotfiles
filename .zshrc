@@ -46,6 +46,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
+plugins=( [plugins...] zsh-syntax-highlighting)
 
 # User configuration
 
@@ -163,6 +164,7 @@ alias gco='git co'
 alias g='git'
 alias gad='git add -p'
 alias gci='git ci -m'
+alias gadn='git add -N'
+alias gil='git log --oneline --graph'
 
-export OUICAR_WEB_PATH=/Users/BenjMichel/ouicar/ouidocker
-export OUICAR_DOCS_PATH=/Users/BenjMichel/ouicar/docs
+alias docker-init='/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
