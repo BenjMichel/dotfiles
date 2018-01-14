@@ -23,7 +23,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -84,10 +84,9 @@ export NVM_DIR="/Users/BenjMichel/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # This loads RVM into a shell session.
-[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
 nvm use stable
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:/Applications/clojure"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -168,3 +167,10 @@ alias gadn='git add -N'
 alias gil='git log --oneline --graph'
 
 alias docker-init='/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
+alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+
+export REACT_EDITOR=atom
+export PATH="/usr/local/openshift-origin/:$PATH"
+
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$PATH:$HOME/.rvm/bin"

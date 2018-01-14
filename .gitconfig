@@ -1,14 +1,14 @@
 [user]
 	name = Benjamin Michel
-	email = benjaminm@bamlab.fr
+	email = bmichel@tilli.fr
 [color]
     branch      = auto
-    diff        = auto
+    diff = always
     interactive = auto
     status      = auto
     ui          = auto
 [push]
-	default = current
+    default = current
 [alias]
     clo = clone
     co  = checkout
@@ -22,24 +22,41 @@
     fu  = fetch upstream
     cobra = !"git fetch upstream; git co upstream/develop; git co -b "
     pr = pull-request
+    unstage = reset --
+    df= diff --word-diff
+    # the acronym stands for "subtree add"
+    sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
+    # the acronym stands for "subtree update"
+    sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
 [core]
-	editor = vim
-	excludesfile = /Users/BenjMichel/.gitignore_global
+    editor = vim
+    excludesfile = /Users/BenjMichel/.gitignore_global
 [diff]
-    tool = diffuse 
+    tool = diffuse
 [difftool]
     prompt = false
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
 [init]
     templatedir = ~/.gittemplate
 [filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
+    clean = git hawser clean %f
+    smudge = git hawser smudge %f
+    required = true
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+[mergetool "mergepbx"]
+    cmd = /Users/BenjMichel/Documents/mergepbx/mergepbx "$BASE" "$LOCAL" "$REMOTE" -o "$MERGED"
+[gui]
+    recentrepo = /Users/BenjMichel/Documents/projets/choufchouf
+[color "diff"]
+    meta = yellow
+    frag = magenta
+    whitespace = red
+[pager]
+    diff = diff-so-fancy
+    show = diff-so-fancy
