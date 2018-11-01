@@ -4,6 +4,7 @@
 * hyperswitch: switch between windows and workspaces https://bahoom.com/hyperswitch
 * copyclip: clipboard history https://itunes.apple.com/fr/app/copyclip-clipboard-history-manager/id595191960?mt=12
 * fork: git gui https://git-fork.com/ 
+* rocket: emoji keyboard https://matthewpalmer.net/rocket/
 
 ## Terminal
 
