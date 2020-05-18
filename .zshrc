@@ -20,7 +20,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -46,7 +46,6 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-plugins=( [plugins...] zsh-syntax-highlighting)
 
 # User configuration
 
@@ -84,7 +83,7 @@ export NVM_DIR="/Users/BenjMichel/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # This loads RVM into a shell session.
-nvm use stable
+# nvm use stable
 
 export PATH="$PATH:/Applications/clojure"
 
@@ -165,12 +164,56 @@ alias gad='git add -p'
 alias gci='git ci -m'
 alias gadn='git add -N'
 alias gil='git log --oneline --graph'
+alias gbrd='git branch --merged | egrep -v "(^\*|master|develop)" | xargs git branch -d'
+
+alias y='yarn'
+alias yb='yarn build'
+alias yl='yarn run lint'
+alias ylf='yarn run lint:fix'
+alias ys='yarn start'
+alias ysd='yarn run start:dev'
+alias yt='yarn test'
+alias ytw='yarn run test:watch'
+alias yd='yarn run doc'
 
 alias docker-init='/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+alias shake='adb shell input keyevent 82'
 
 export REACT_EDITOR=atom
 export PATH="/usr/local/openshift-origin/:$PATH"
 
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Override auto-title when static titles are desired ($ title My new title)
+title() { export TITLE_OVERRIDDEN=1; echo -en "\e]0;$*\a"}
+# Turn off static titles ($ autotitle)
+autotitle() { export TITLE_OVERRIDDEN=0 }; autotitle
+# Condition checking if title is overridden
+overridden() { [[ $TITLE_OVERRIDDEN == 1 ]]; }
+# Echo asterisk if git state is dirty
+gitDirty() { [[ $(git status 2> /dev/null | grep -o '\w\+' | tail -n1) != ("clean"|"") ]] && echo "*" }
+
+# Show cwd when shell prompts for input.
+tabtitle_precmd() {
+   if overridden; then return; fi
+   pwd=$(pwd) # Store full path as variable
+   cwd=${pwd##*/} # Extract current working dir only
+   print -Pn "\e]0;$cwd$(gitDirty)\a" # Replace with $pwd to show full path
+}
+[[ -z $precmd_functions ]] && precmd_functions=()
+precmd_functions=($precmd_functions tabtitle_precmd)
+
+# Prepend command (w/o arguments) to cwd while waiting for command to complete.
+tabtitle_preexec() {
+   if overridden; then return; fi
+   printf "\033]0;%s\a" "${1%% *} | $cwd$(gitDirty)" # Omit construct from $1 to show args
+}
+[[ -z $preexec_functions ]] && preexec_functions=()
+preexec_functions=($preexec_functions tabtitle_preexec)
